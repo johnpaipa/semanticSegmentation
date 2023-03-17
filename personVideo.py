@@ -10,26 +10,24 @@ Original file is located at
 import os
 import numpy as np
 import random
-
 import colorsys
 import cv2
-
 from mrcnn.config import Config
 from mrcnn import model as modellib
 
 
-model_filename = "mask_rcnn_casco_0050.h5"
-class_names = ['BG', 'casco']
+model_filename = "../semanticSegmentation/logs/persona20230311T2329/mask_rcnn_persona_0050.h5"
+class_names = ['BG', 'persona']
 min_confidence = 0.6
 
-#camera = cv2.VideoCapture(1)
-camera = cv2.VideoCapture("video.mp4")
+camera = cv2.VideoCapture(1)
+#camera = cv2.VideoCapture("video2.mp4")
 
-class CascoConfig(Config):
+class PersonaConfig(Config):
     """Configuration for training on the helmet  dataset.
     """
     # Give the configuration a recognizable name
-    NAME = "casco"
+    NAME = "persona"
 
     # Train on 1 GPU and 1 image per GPU. Batch size is 1 (GPUs * images/GPU).
     GPU_COUNT = 1
@@ -59,10 +57,10 @@ class CascoConfig(Config):
     POST_NMS_ROIS_INFERENCE = 500 
     POST_NMS_ROIS_TRAINING = 1000 
     
-config = CascoConfig()
+config = PersonaConfig()
 config.display()
 
-class InferenceConfig(CascoConfig):
+class InferenceConfig(PersonaConfig):
     GPU_COUNT = 1
     IMAGES_PER_GPU = 1
     #IMAGE_MIN_DIM = 512
